@@ -1,0 +1,12 @@
+{% extends 'school_record/base.html'%}
+{% block content %}
+<h2>Add New Class </h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Class</button>
+</form>
+<p>
+    <a href="{% url 'class_list' %}">Back to class list</a>
+</p>
+{% endblock %}

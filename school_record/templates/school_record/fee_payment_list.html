@@ -1,0 +1,150 @@
+{% extends 'school_record/base.html'%}
+{% block content %}
+<h1> Student Fee Payment Records</h1>
+{% for message in messages %}
+    <p>{{ message }}</p>
+{% endfor %}
+<h2> Records New Payment</h2>
+            <form method="POST">
+            {% csrf_token %}
+    <label for="student-search">Find student by name or ID:</label>
+    <input type="search" id="student-search" placeholder="Type a name or student ID">
+    <br><br>
+    <label> Student:</label>
+    <select name="student" id="student" required>  
+          <option value="">---Select Student---</option>
+          {% for item in students %}
+              <option  
+              value="{{ item.id }}"> 
+                  {{ item.first_name }} {{ item.last_name }} - {{ item.student_id }}
+            </option>
+            {% empty %}
+              <option value="">No students registered.</option>
+            {% endfor %} 
+    </select>
+    <p id="student-search-empty" hidden>No matching students.</p>
+    <br><br>
+    <label> Amount Paid:</label>
+    <input type="number" name="amount_paid" min="0" step="0.01" required>
+    <br><br>
+    <label> Payment Date:</label>
+    <input type="date" name="payment_date" required>
+    <br><br>
+    <label> Term:</label>
+    <select name="term" required>
+        <option value="">Select Term</option>
+        {% for Value, Label in terms_choice %}
+            <option value="{{ Value }}">{{ Label }}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+    <label>Academic Session:</label>
+    <input type="text" name="session" placeholder="2023/2024" required>
+    <br><br>
+    <label> Payment Reference:</label>
+    <input type="text" name="payment_reference">
+    <br><br>
+    <label> Description:</label>
+    <textarea name="description"></textarea>
+    <br><br>
+    <button type="submit">Save Payment </button>
+</form>
+
+<hr>
+<h2> Payment Summary</h2>
+<!-----to edit gaps --gap: 20px;-->
+<div style="padding: 15px; background: #f1f5f9;  margin-bottom: 20px;">
+    <p>
+        <strong>Total Amount Collected:</strong>
+                #{{ total_payments | floatformat:2}}
+    </p>
+    <p>
+        <strong>Total Payments Transaction:</strong>
+                {{ payments_count }}
+    </p>
+</div>
+<h2>Individual Student Payment Summary </h2>
+<table border="1" cellpadding="10" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Student ID</th>
+            <th>Student Name</th>
+            <th>Total Amount Paid</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in student_payments %}
+        <tr>
+            <td>{{ item.student_id }}</td>
+            <td>{{ item.first_name }} {{ item.last_name }}</td>
+            <td>
+                        #
+                {{ item.total_paid|default:0 |floatformat:2 }}
+            </td>
+        </tr>
+        {% empty %}
+            <tr>
+                <td colspan="3">No Students available.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Payment History</h2>
+<table border="1" cellpadding="10" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Student ID</th>
+            <th>Student Name</th>
+            <th>Amount Paid</th>
+            <th>Payment Date</th>
+            <th>Term</th>
+            <th>Academic Session</th>
+            <th>Payment Reference</th>
+            <th>Action</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for payment in payments %}
+        <tr>
+            <td>{{ payment.student.student_id }}</td>
+            <td>{{ payment.student.first_name }} {{ payment.student.last_name }}</td>
+            <td>{{ payment.amount_paid }}</td>
+            <td>{{ payment.payment_date }}</td>
+            <td>{{ payment.term }}</td>
+            <td>{{ payment.session }}</td>
+            <td>{{ payment.payment_reference }}</td>
+            <td>
+                <a href="{% url 'edit_fee_payment' payment.id %}">Edit</a>
+                </td>
+        </tr>
+        {% empty %}
+            <tr>
+                <td colspan="7">No payment records available.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script>
+    const studentSearch = document.getElementById('student-search');
+    const studentSelect = document.getElementById('student');
+    const noStudentMatch = document.getElementById('student-search-empty');
+    const studentOptions = Array.from(studentSelect.options).slice(1);
+
+    studentSearch.addEventListener('input', () => {
+        const query = studentSearch.value.trim().toLowerCase();
+        let visibleOptions = 0;
+
+        studentOptions.forEach((option) => {
+            const matches = option.text.toLowerCase().includes(query);
+            option.hidden = !matches;
+            if (matches && option.value) {
+                visibleOptions += 1;
+            }
+        });
+
+        noStudentMatch.hidden = !query || visibleOptions > 0;
+    });
+</script>
+{% endblock %}

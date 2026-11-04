@@ -1,0 +1,257 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: o;
+    padding: o;
+    background: #f4f6f8;
+    text-align: center;
+}
+h1 {
+    background: #1f4e79;
+    color: white;
+    padding: 25px;
+    margin: 0;
+}
+h2 {
+    margin-top: 40px;
+}
+h3 {
+    font-size: 25px;
+}
+button {
+    padding: 12px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+a {
+    text-decoration: none;
+}
+.student_table {
+    width: 90%;
+    margin: 30px auto;
+    border-collapse: collapse;
+    background: white;
+}
+.student_table th,
+.student_table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+.student_table th {
+    background: #1f4e79;
+    color: white;
+}
+.student_table th {
+    background: #f1f1f1;
+}
+.edit_btn {
+    color: white;
+    font-weight: bold;
+}
+.delete_btn {
+    color:red;
+    font-weight: bold;
+}
+form {
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 30px auto;
+    background: white;
+    border-radius: 8px;
+}
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 15px;
+    box-sizing: border-box;
+}
+form button {
+    background: #1f4e79;
+    color: white;
+}
+.delete_pages {
+    width: 50%;
+    margin: 60px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+}
+.confirm_btn {
+    background: red;
+    color: white;
+}
+.cancel_delete {
+    color: white;
+    font-weight: bold;
+}
+.statistics {
+    width: 90%;
+    margin: 30px auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.stat_card {
+    background: white;
+    padding: 20px;
+    width: 200px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.stat_card h3 {
+    margin: 5px 0;
+    font-size: 18px;
+}
+.stat_card p {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+nav {
+    background: #1f4e79;
+    padding: 15px;
+    text-align: center;
+}
+nav a {
+    color: white;
+    margin: 0 15px;
+    font-weight: bold;
+    text-decoration: none;
+}
+nav a:hover {
+    text-decoration: underline;
+}
+.login_page {
+    width: 400px;
+    margin: 60px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.login_page h1 {
+    background: none;
+    color: #1f4e79;
+    padding: 0;
+}
+.login_page h2 {
+        margin-top: 20px;
+}
+.login_page form {
+    width: 100%;
+    margin: 20px 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+}
+.login_page button {
+    background: #1f4e79;
+    color: white;
+    width: 100%;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1f4e79;
+    padding: 15px  30px;
+}
+.school_name {
+    color: white;
+    font-size:  22px;
+    font-weight: bold;
+}
+.nav_links {
+    display: flex;
+    gap: 20px;
+}
+.nav_links {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+.nav_links a:hover {
+    text-decoration:  underline;
+}
+.welcome_section {
+    width: 85%;
+    margin: 30px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
+}
+.student_details{
+    width: 60%;
+    margin: 30px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+.student_details h2 {
+     color: #1f4e79;
+     margin-top: 0;
+}
+.student_details p {
+    color: #1f4e79;
+    font-weight: bold;
+}
+.view_btn {
+    color: #1f4e79;
+    font-weight: bold;
+}
+.searh_form {
+    width: 80%;
+    display: inline;
+    gap: 10px;
+    align-items: center;
+}
+.searh_form input  {
+    margin: 0;
+    flex: 1;
+}
+.searh_form button {
+    margin: 0;
+}
+.clear_search {
+    display: inline-block;
+    margin: 5px auto 20px;
+    color: #1f4e79;
+    font-weight: bold;
+}
+.class_list {
+    width: 90%;
+    margin: 30px auto;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.class_card {
+    width: 200px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.class_card {
+    color: #1f4e79;
+    margin-top: 5px;
+}
+.class_card {
+    color: #333;
+    background-color:#ffffff;
+    border:1px solid #cccccc;
+    padding:20px;
+    margin:10px:
+    display:block;
+    min-height:100px
+}

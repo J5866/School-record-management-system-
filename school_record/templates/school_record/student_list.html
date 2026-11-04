@@ -1,0 +1,64 @@
+{% extends 'school_record/base.html'%}
+{% block title %} Student Record {% endblock %}
+{% block content %}
+    <h1>STUDENT RECORD</h1>
+    <p><strong>Total Records: {{ student | length }}</strong>
+                    <form method="GET" action="{% url 'search_student'%}" class="search_form">
+                    <input type="text" name="q"
+                        placeholder="Search by student ID or Name...." value="{{ query }}">
+                    <button type="submit">Search
+                    </button>
+                </form>
+                    {% if query %}
+                        <a href="{% url 'student_list' %}"
+                        class="clear_search">clear search </a>
+                        {% endif %}
+             <a href="{% url 'add_student' %}">Add new student</a>
+             <a href="{% url 'export_students_csv' %}">Export to CSV</a>
+             <br><br>
+             <table class="student_table">
+                <tr>
+                    <th>Photo</th>
+                    <th>Student ID</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Middle name</th>
+                    <th>Date of birth</th>
+                    <th>Address</th>
+                    <th>Gender</th>
+                    <th>Phone number</th>
+                    <th>Class </th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+                {%for student in student %}
+                <tr>
+                    <td>
+                        {% if student.image %}
+                            <img src="{{ student.image.url }}" alt="Photo of {{ student.first_name }} {{ student.last_name }}" width="50">
+                        {% endif %}
+                    </td>
+                    <td><a href="{% url 'student_detail' student.student_id %}">{{student.student_id}}</a></td>
+                    <td>{{student.first_name}}</td>
+                    <td>{{student.last_name}}</td>
+                    <td>{{student.middle_name}}</td>
+                    <td>{{student.date_of_birth}}</td>
+                    <td>{{student.address}}</td>
+                    <td>{{student.gender}}</td>
+                    <td>{{student.phone_number}}</td>
+                    <td>{{student.class_name}}</td>
+                    <td>{{student.email}}</td>
+                     <td>
+                        <a href="{% url 'student_detail' student.student_id %}" class="view_btn">View</a>
+                        <a href="{% url 'edit_student' student.student_id %}" class="edit_btn">Edit</a>
+                        <a href="{% url 'delete_student' student.student_id %}" class="delete_btn">Delete</a>
+                     </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="12">No student record found</td>
+                </tr>
+                {% endfor %}
+             </table>
+             <a href="{% url 'home' %}">Back to Dashboard</a>
+{% endblock %}

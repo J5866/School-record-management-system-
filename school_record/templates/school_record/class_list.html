@@ -1,0 +1,47 @@
+{% extends 'school_record/base.html'%}
+{% block title %}Dashbord{% endblock %}
+{% block content %}
+
+<h1> school classes </h1>
+        <p><strong>Total classes: {{ classes | length }}</strong></p>
+        <form method="GET">
+            <input
+            type="text"
+            name="q"
+            placeholder="search class name ...."
+            value="{{ query }}"
+            >
+            <button type="submit">search</button>
+            <a href="{%url 'class_list'%}">Clear search</a>
+        </form>
+        <a href="{% url 'add_class' %}">+ Add New Class</a>
+        <a href="{% url 'export_classes_csv' %}">Export classes to CSV</a>
+        <div class="class_list">
+     {% for classroom in classes %}
+        <div class="class_card">
+            <h2>{{ classroom.name }}</h2>
+            <p>Total Students: {{ classroom.total_students }}</p>
+            <p>capacity usage : {{ classroom.total_students }}/{{ classroom.capacity }} students</p>
+            <p>Total Teachers: {{ classroom.total_teachers }}</p>
+            <p>Capacity: {{ classroom.capacity }}</p>
+            <p>Remaining Spaces: {{ classroom.remaining_spaces }}</p>
+            <p>{{ classroom.description }}</p>
+            <a href="{% url 'class_detail' classroom.id %}">
+            <button> View Class Details </button>
+            </a>
+            <a href="{% url 'edit_class' classroom.id %}">
+                <button> Edit Class </button>
+            </a>
+        </div>
+        {% empty %}
+            {% if query %}
+                <p>No classes found matching "{{ query }}".</p>
+            {% else %}
+                <p>No classes have been added yet.</p>
+            {% endif %}
+        {% endfor %}
+        </div>
+    <a href="{% url 'home' %}">
+    <button> Back to Dashboard </button>
+            </a>
+    {% endblock %}

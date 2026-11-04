@@ -1,0 +1,32 @@
+{% extends 'school_record/base.html'%}
+
+{% block content %}
+    <h2>Class Summary</h2>
+    <table border="1" cellpadding="10">
+        <thead>
+            <tr>
+                <th>Class</th>
+                <th>Details</th>
+                <th>Total Students</th>
+                <th>Total Teachers</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in class_data %}
+            <tr>
+                <td>{{ item.classroom }}</td>
+                <td><a href="{% url 'class_detail' item.classroom.id %}">View Details</a></td>
+                <td>{{ item.total_students }}</td>
+                <td>{{ item.total_teachers }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No classes available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p>
+        <a href="{% url 'home' %}"><button type="button">Back to Dashboard</button></a>
+    </p>
+{% endblock %}

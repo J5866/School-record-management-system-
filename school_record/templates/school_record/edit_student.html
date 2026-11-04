@@ -1,0 +1,13 @@
+{% extends 'school_record/base.html'%}
+{% block title %}Edit Student{% endblock %}
+{% block content %}
+    <h1>Edit student Record</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {{ form.as_p}}
+
+            <button type="submit">Update student</button>
+
+        </form>
+{% endblock %}

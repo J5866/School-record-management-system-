@@ -1,0 +1,58 @@
+{% extends 'school_record/base.html'%}
+{% block title %}Student detail{% endblock %}
+{% block content %}
+
+<h1>student details </h1>
+
+    <div class="student_details">
+
+            {% if student.image %}
+                <p><img src="{{ student.image.url }}" alt="Photo of {{ student.first_name }} {{ student.last_name }}" width="160"></p>
+            {% endif %}
+            <h2>{{student.first_name }}
+            {{ student.middle_name }}
+            {{ student.last_name }}</h2>
+
+            <p><strong>student ID:</strong>
+                {{ student.student_id }}</p>
+            <p><strong>Date of birth</strong>
+                {{ student.date_of_birth}}</p>
+            <p><strong>Gender</strong>
+                {{ student.gender}}</p>
+            <p><strong>Class</strong>
+                {{ student.class_name}}</p>
+            <p><strong>Phone</strong>
+                    {{ student.phone_number}}</p>
+            <p><strong>Email</strong>
+                {{ student.email}}</p>
+            <p><strong>Address</strong>
+                {{ student.address}}</p>
+
+                <br>
+                <a href="{% url 'student_list' %}"> Back to student records</a>
+    </div>
+
+    {% endblock %}
+
+    <button onclick="window.print()"class="no-print">Print student profile</button>
+    <style>
+        @media print {
+            body {
+                background: white;
+                color:black;
+                font-size: 12pt;
+            }
+                .no-print {
+                    display: none !important;
+                }
+
+            h1,h2,h3 {
+                color: black;
+            }
+            @page {
+                size: A4;
+                margin: 20mm;
+            }
+
+        }
+    </style>

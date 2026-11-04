@@ -1,0 +1,83 @@
+{% extends 'school_record/base.html' %}
+{% block title %}Teacher Records{% endblock %}
+{% block content %}
+
+<h1>Teacher Records</h1>
+<p> Total Teachers Found: {{ teachers|length }}</p>
+<form method="GET" action="{% url 'search_teacher' %}">
+    <input type="text" name="q" placeholder="Search by teachers name,ID,subject..." value="{{ query|default:'' }}">
+    <button type="submit">Search</button>
+</form>
+<form method="GET" action="{% url 'teacher_list' %}">
+    <a href="{% url 'teacher_list' %}">Show All</a>
+    <label for="class_name">Filter by class</label>
+    <select name="class_name" id="class_name">
+            <option value="">All classes</option>
+
+            {% for classroom in classes %}
+                <option value="{{ classroom.id }}" {% if selected_class == classroom.id|stringformat:"s" %}selected{% endif %}>
+                    {{ classroom.name }}
+                </option>
+            {% endfor %}
+        </select>
+    <button type="submit">Filter</button>
+</form>
+                {% if query %}
+                    <a href="{% url 'teacher_list' %}">Clear Search</a>
+                {% endif %}
+
+<p><strong>Total Teachers: {{ teachers|length }}</strong></p>
+
+<table class="student_table">
+    <thead>
+        <tr>
+            <th>Photo</th>
+            <th>Teacher ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Middle Name</th>
+            <th>Subject</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Class</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+        <tbody> 
+            {% for teacher in teachers %}
+   
+    <tr>
+        <td>
+            {% if teacher.image %}
+                <img src="{{ teacher.image.url }}" alt="Photo of {{ teacher.first_name }} {{ teacher.last_name }}" width="50">
+            {% endif %}
+        </td>
+        <td>{{ teacher.teacher_id }}</td>
+        <td>{{ teacher.first_name }}</td>
+        <td>{{ teacher.last_name }}</td>
+        <td>{{ teacher.middle_name }}</td>
+        <td>{{ teacher.subject }}</td>
+        <td>{{ teacher.phone_number }}</td>
+        <td>{{ teacher.email }}</td>
+        <td>{{ teacher.address | default:"N/A" }}</td>
+         <td>{{ teacher.class_name | default:"N/A" }}</td>
+        <td>
+             <a href="{% url 'teacher_detail' teacher.id %}">View Detail</a>
+            <a href="{% url 'edit_teacher' teacher.id %}">Edit</a>
+            <a href="{% url 'delete_teacher' teacher.id %}">Delete</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="11">No teacher record found</td>
+    </tr>
+    {% endfor %}
+    </tbody>    
+</table>
+
+<a href="{% url 'home' %}">
+    <button>Back to Dashboard</button>
+</a>
+
+{% endblock %}

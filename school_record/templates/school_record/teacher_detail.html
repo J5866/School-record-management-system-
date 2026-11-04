@@ -1,0 +1,39 @@
+{% extends 'school_record/base.html' %}
+{% block title %}Teacher Details{% endblock %}
+{% block content %}
+
+<h1>Teacher Details</h1>
+
+<div class="teacher_details">
+    {% if teacher.image %}
+        <p><img src="{{ teacher.image.url }}" alt="Photo of {{ teacher.first_name }} {{ teacher.last_name }}" width="160"></p>
+    {% endif %}
+    <h2>{{ teacher.first_name }} {{ teacher.middle_name }} {{ teacher.last_name }}</h2>
+    <p><strong>Teacher ID:</strong> {{ teacher.teacher_id }}</p>
+    <p><strong>Subject:</strong> {{ teacher.subject }}</p>
+    <p><strong>Class Name:</strong> {{ teacher.class_name|default:"N/A" }}</p>
+    <p><strong>Phone:</strong> {{ teacher.phone_number }}</p>
+    <p><strong>Email:</strong> {{ teacher.email }}</p>
+    <p><strong>Address:</strong> {{ teacher.address|default:"N/A" }}</p>
+    <a href="{% url 'teacher_list' %}">Back to teacher records</a>
+</div>
+<button onclick="window.print()"class="no-print">
+    print teacher profile</button>
+
+<style>
+    @media print {
+        .no-print {
+            display: none ! important;
+        }
+        body {
+            backgound: white;
+            color: black;
+        }
+        @page {
+            size:A4;
+            margin: 20mm;
+        }
+    }
+</style>
+
+{% endblock %}

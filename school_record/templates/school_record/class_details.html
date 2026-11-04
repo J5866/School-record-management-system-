@@ -1,0 +1,98 @@
+{% extends 'school_record/base.html'%}
+
+{% block content %}
+<h2>Class Details :
+{{ classroom.name }}</h2>
+<h3> Student in This Class</h3>
+<p> Total Students Found: {{ students|length }}</p>
+{% if students %}
+      <table border="1" cellpadding="8">
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Middle Name</th>
+                <th>Gender</th>
+                <th>Date of Birth</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.student_id }}</td>
+                <td>{{ student.first_name }}</td>
+                <td>{{ student.last_name }}</td>
+                <td>{{ student.middle_name }}</td>
+                <td>{{ student.gender }}</td>
+                <td>{{ student.date_of_birth }}</td>
+                <td>{{ student.phone_number }}</td>
+                <td>{{ student.email }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+        {% else %}
+        <p>No students have been assigned to this class.</p>
+        {% endif %}
+<h3> Teachers Assigned to This Class</h3>
+<p> Total Teachers Found: {{ teachers|length }}</p>
+{% if teachers %}
+      <table border="1" cellpadding="8">
+        <thead>
+            <tr>
+                <th>Teacher ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Middle Name</th>
+                <th>Subject</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for teacher in teachers %}
+            <tr>
+                <td>{{ teacher.teacher_id }}</td>
+                <td>{{ teacher.first_name }}</td>
+                <td>{{ teacher.last_name }}</td>
+                <td>{{ teacher.middle_name }}</td>
+                <td>{{ teacher.subject }}</td>
+                <td>{{ teacher.phone_number }}</td>
+                <td>{{ teacher.email }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+        {% else %}
+        <p>No teachers have been assigned to this class.</p>
+        {% endif %}
+        <p>
+        <a href="{% url 'class_summary' %}">Back to Class List</a>
+        </p>
+{% endblock %}
+
+<button onclick="window.print()"class="no-print">Print class report</button>
+    <style>
+        @media print {
+            body {
+                background: white;
+                color:black;
+                font-size: 12pt;
+            }
+                .no-print {
+                    display: none !important;
+                }
+
+            h1,h2,h3 {
+                color: black;
+            }
+            @page {
+                size: A4;
+                margin: 20mm;
+            }
+
+        }
+    </style>

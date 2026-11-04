@@ -1,0 +1,57 @@
+{% extends 'school_record/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+
+<h1>School Record Management System</h1>
+<div class="welcome-section">
+    <h2>Dashboard</h2>
+    <p>Welcome to the macman college school record management system</p>
+    <p>Manage student records, classes, and other information from one place.</p>
+</div>
+
+<h3>Total student: {{ total_student }}</h3>
+
+<div class="statistics">
+    <div class="stat_card">
+        <h3>Total students</h3>
+        <p>{{ total_student }}</p>
+    </div>
+    <div class="stat_card">
+        <h3>Total classes</h3>
+        <p>{{ total_classes }}</p>
+    </div>
+    <div class="stat_card">
+        <h3>Female students</h3>
+        <p>{{ female_students }}</p>
+    </div>
+    <div class="stat_card">
+        <h3>Male students</h3>
+        <p>{{ male_students }}</p>
+    </div>
+    <div class="stat_card">
+        <h3>Total Teachers</h3>
+        <p>{{ total_teachers }}</p>
+    </div>
+</div>
+
+<div>
+    <a href="{% url 'add_student' %}"><button type="button">Add New Student</button></a>
+    <a href="{% url 'student_list' %}"><button type="button">View Student Records</button></a>
+    <a href="{% url 'class_list' %}"><button type="button">View Classes</button></a>
+    <a href="{% url 'teacher_list' %}"><button type="button">View Teachers</button></a>
+    <a href="{% url 'examination_list' %}"><button type="button">View Examination Records</button></a>
+    <a href="{% url 'student_report_card' %}"><button type="button">Student Report Cards</button></a>
+    <a href="{% url 'fee_payment_list' %}"><button type="button">View Fee Payment Records</button></a>
+    <p>
+    <a href="{% url 'class_teacher' %}"><button type="button">View Class Teachers</button></a>
+    </p>
+    <p>
+    <a href="{% url 'class_summary' %}"><button type="button">View Class Summary</button></a>
+    </p>
+</div>
+
+<form action="{% url 'logout' %}" method="POST">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+{% endblock %}

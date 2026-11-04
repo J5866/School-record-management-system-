@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}School Record Management System{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'school_record/style.css' %}">
+</head>
+<body>
+    <nav>
+        <div class="school_name">
+        macman college
+        </div>
+        <div class="nav_links">
+        <a href="{% url 'home' %}">Dashboard</a>
+        <a href="{% url 'student_list' %}">Students</a>
+        <a href="{% url 'class_list' %}">classes</a>
+        <a href="{% url 'teacher_list' %}">  Teachers</a>
+        <a href="{% url 'add_teacher' %}">Add Teacher</a>
+        <a href="{% url 'add_student' %}">Add student</a>
+        </div>
+    </nav>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

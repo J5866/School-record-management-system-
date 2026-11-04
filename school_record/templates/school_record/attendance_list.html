@@ -1,0 +1,71 @@
+{% extends 'school_record/base.html'%}
+{% block content %}
+    <h1> Student Attendance Records</h1>
+    {% if saved %}
+        <p style="color: green; font-weight: bold;">Attendance records saved successfully!</p>
+    {% endif %}
+    <form method="GET">
+        <label>Select Date:</label>
+        <input type="date" id="date" name="date" value="{{ selected_date }}">
+        <button type="submit">View Attendance</button>
+    </form>
+    <hr>
+    <h2>Attendance Summary </h2>
+      <div style="display: flex; gap: 20px; flex-wrap: margin: 20px 0;">
+
+        <div style="background: #d4edda; padding: 15px; border-radius: 8px;">
+                  <h3> present </h3>
+                <h2>{{ present_count }}</h2>
+        </div>
+        <div style="background: #f8d7da; padding: 15px; border-radius: 8px;">
+                  <h3> Absent </h3>
+                <h2>{{ absent_count }}</h2>
+        </div>
+        <div style="background: #fff3cd; padding: 15px; border-radius: 8px;">
+                  <h3> Late </h3>
+                <h2>{{ late_count }}</h2>
+        </div>
+        </div>
+        <div style="background: #cce5ff; padding: 15px; border-radius: 8px;">
+            <h3> Total Marked </h3>
+            <h2>{{ total_marked }}</h2>
+        </div>
+
+    <a href="{% url 'export_attendance_csv' %}?date={{ selected_date }}">Export Attendance to CSV</a>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="date" value="{{ selected_date }}">
+        <table border="1" cellpadding="10" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Attendance Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in student_rows %}
+                    <tr>
+                        <td>{{ row.student.student_id }}</td>
+                        <td>{{ row.student.first_name }} {{ row.student.last_name }}</td>
+                        <td>
+                            <select name="attendance_{{ row.student.id }}">
+                                <option value="Present" {% if row.attendance and row.attendance.status == 'Present' %}selected{% endif %}>Present</option>
+                                <option value="Absent" {% if row.attendance and row.attendance.status == 'Absent' %}selected{% endif %}>Absent</option>
+                                <option value="Late" {% if row.attendance and row.attendance.status == 'Late' %}selected{% endif %}>Late</option>
+                            </select>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3">No student records found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <button type="submit">Save Attendance</button>
+    </form>
+
+{% endblock %}

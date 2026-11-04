@@ -1,0 +1,13 @@
+{% extends 'school_record/base.html'%}
+
+{% block content %}
+    <h2>Edit Class {{ classroom.name }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update Class</button>
+    </form>
+    <p>
+        <a href="{% url 'class_detail' classroom.id %}">Back to Class Details</a>
+    </p>
+{% endblock %}

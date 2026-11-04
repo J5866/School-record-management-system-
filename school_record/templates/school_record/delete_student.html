@@ -1,0 +1,17 @@
+{% extends 'school_record/base.html'%}
+{% block title %}Delete Student{% endblock %}
+{% block content %}
+    <div class="delete-page">
+    <h1>Delete student records</h1>
+            <p>Are you sure you want to delete <strong>{{ student.first_name }} {{ student.last_name }}</strong>?
+         </p>
+         <form method="POST">
+            {% csrf_token %}
+                    <button type="submit" class="confirm_delete">yes, delete
+                </button>
+            {{ form.as_p}}
+
+        </form>
+        <a href="{% url 'student_list' %}" class="cancel_delete">Cancel</a>
+    </div>
+{% endblock %}

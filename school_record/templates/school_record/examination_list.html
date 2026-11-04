@@ -1,0 +1,100 @@
+{% extends 'school_record/base.html'%}
+{% block content %}
+    <h1>Examination Records</h1>
+     {% for message in messages %}
+         <p style="padding : 10px; background; #d4eadda; color: #155724; border-radius: 5px;"> 
+             {{ message }}</p>
+     {% endfor %}
+     <h2> Enter Student Scores</h2>
+    {% if saved %}
+        <p style="color: green; font-weight: bold;">Examination records saved successfully!</p>
+    {% endif %}
+    {% if errors %}
+        <ul class="form-errors">
+            {% for error in errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <!-- Display existing examination records in a table --> 
+        <label> Student:</label>
+        <select name="student"  required>  
+              <option value="">Select Student</option>
+              {% for item in students %}
+                  <option  
+                  value="{{ item.id }}"> 
+                         {{ item.student_id }} -
+                  {{ item.first_name }} 
+                  {{ item.last_name }}
+                </option>
+              {% endfor %} 
+        </select>
+        <br><br>
+        <label> Subject:</label>
+        <input type="text" name="subject" required>
+        <br><br>
+        <label> Term:</label>
+        <select name="term" required>
+            <option value="">Select Term</option>
+            {% for term_value, label in term_choices %}
+                <option value="{{ term_value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label> Academic session:</label>
+        <input type="text" name="session" placeholder="e.g., 2026-2027" required>
+        <br><br>
+        <label>  Test Score:</label>
+        <input type="number" name="test_score" min="0" max="100" step="0.01" required>
+        <br><br>
+        <label> Examination  Score:</label>
+        <input type="number" name="exam_score" min="0" max="100"  step="0.01" required>
+        <br><br>
+        <button type="submit">Save Examination Record</button>
+    </form>
+
+    <hr>
+
+          <!-- Form to add a new examination record -->
+    <h2>Recorded Examination Results</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Student Name</th>
+                <th>Subject</th>
+                <th>Term</th>
+                <th>Session</th>
+                <th>Test Score</th>
+                <th>Exam Score</th>     
+                <th>Total Score</th>
+                <th>Grade</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in examinations %}
+                <tr>
+                    <td>{{ record.student.student_id }}</td>
+                    <td>{{ record.student.first_name }} {{ record.student.last_name }}</td>
+                    <td>{{ record.subject }}</td>
+                    <td>{{ record.term }}</td>
+                    <td>{{ record.session }}</td>
+                    <td>{{ record.test_score }}</td>
+                    <td>{{ record.exam_score }}</td>
+                    <td>{{ record.total_score }}</td>
+                    <td>{{ record.grade }}</td>
+                </tr>
+            {% empty %}
+                    <tr>
+                        <td colspan="9">No examination records available.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+
+{% endblock %}
